@@ -1,0 +1,25 @@
+[
+  {
+    "ação": "Google",
+    "quantidade": "30",
+    "valorDeCompra": "R$445,00"
+  },
+
+  {
+    "ação": "Apple",
+    "quantidade": "2",
+    "valorDeCompra": "R$305,00"
+  },
+
+  {
+    "ação": "Microsoft",
+    "quantidade": "6",
+    "valorDeCompra": "R$23,00"
+  },
+
+  {
+    "ação": "Shopify",
+    "quantidade": "16",
+    "valorDeCompra": "R$425,00"
+  }
+]

@@ -1,0 +1,144 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="money-listagem-acoes">
+    <template>
+        <style include="iron-flex iron-positioning paper-styles">
+            :host {
+                display: block;
+                padding: 23px;
+            }
+
+            paper-card{
+                width: 50%;
+                left: 330px;
+                padding: 0;
+            }
+
+            paper-fab {
+                --paper-fab-background: var(--paper-pink-900);
+                position: fixed;
+                right: 40px;
+                bottom: 40px;
+                z-index: 1000;
+            }
+
+            @media (max-width: 767px) {
+                paper-card{
+                    width: 100%;
+                    left: 0px;
+                    padding: 0;
+                }
+            }
+
+            paper-icon-button.buttons{
+                --paper-fab-background: var(--paper-green-800);
+                position: absolute;
+                right: 20px;
+                width: 50px;
+            }
+
+            footer {
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                background-color: var(--paper-grey-50);
+                font-size: 11px;
+            }
+
+            .grid {
+                @apply(--layout-horizontal);
+            }
+
+            .grid > section {
+                @apply(--layout-flex);
+                margin-right: 0;
+            }
+
+            .grid > section:not(:first-child) {
+                margin-left: 20px;
+            }
+        </style>
+
+        <iron-ajax auto url="/data/acoes.json" handle-as="json" last-response="{{_acoes}}"></iron-ajax>
+
+        <paper-card heading="Ações">
+            <vaadin-grid id="gridPreco" class="flex" items="{{_acoes}}">
+                <table>
+                    <colgroup>
+                        <col name="ação">
+                        <col name="quantidade">
+                        <col name="valorDeCompra">
+                    </colgroup>
+                </table>
+            </vaadin-grid>
+        </paper-card>
+
+        <paper-icon-button raised on-tap="abrirDialog" mini class="buttons" icon="editor:insert-chart"></paper-icon-button>
+
+        <paper-dialog id="visualizarAcoes">
+            <h2>Suas Açoes</h2>
+            <paper-dialog-scrollable>
+                <div class="card-content grid">
+
+                </div>
+
+                <div class="card-actions">
+                </div>
+            </paper-dialog-scrollable>
+        </paper-dialog>
+
+        <paper-fab raised on-tap="abrirDialogAdd" class="buttons" icon="add"></paper-fab>
+
+        <paper-dialog id="adicionarAcoes">
+            <h2>Adicionar Ação</h2>
+            <paper-dialog-scrollable>
+                <div class="card-content grid">
+                    <section>
+                        <paper-radio-group>
+                            <paper-radio-button name="compra">Compra</paper-radio-button>
+                            <paper-radio-button name="venda">Venda</paper-radio-button>
+                        </paper-radio-group>
+                        <paper-input label="Código"></paper-input>
+                        <paper-input label="Nome"></paper-input>
+                        <paper-input type="number" label=" Valor">
+                            <div prefix>R$
+                            </div>
+                        </paper-input>
+                        <paper-input type="number" label=" Quantidade"></paper-input>
+                        <paper-textarea label="Descrição"></paper-textarea>
+                    </section>
+                </div>
+
+                <div class="card-actions">
+
+                </div>
+
+                <div class="buttons">
+                    <paper-button dialog-dismiss autofocus>Adicionar</paper-button>
+                    <paper-button dialog-confirm>Cancelar</paper-button>
+                </div>
+            </paper-dialog-scrollable>
+        </paper-dialog>
+
+    </template>
+
+
+    <script>
+        Polymer({
+            is: 'money-listagem-acoes',
+
+            abrirDialog: function() {
+                this.$.visualizarAcoes.open();
+            },
+
+            abrirDialogAdd: function() {
+                this.$.adicionarAcoes.open();
+            }
+        });
+    </script>
+</dom-module>

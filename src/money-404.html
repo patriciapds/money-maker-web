@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="money-404">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 10px 20px;
+      }
+
+      img#erro{
+        position: absolute;
+        margin-bottom: 0;
+        margin-top: 96px;
+        padding: 0;
+        right: 0px;
+      }
+
+      a{
+        color: #44423d;
+        font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 16pt;
+      }
+
+      h2{
+        font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 20pt;
+      }
+    </style>
+
+    <h2>Ooooops, essa página não existe! Que tal voltar para a página inicial?</h2>
+    <a href="/">Voltar para a página inicial.</a>
+
+    <img id="erro" src="../images/error.png">
+  </template>
+
+  <script>
+    Polymer({
+      is: 'money-404'
+    });
+  </script>
+</dom-module>

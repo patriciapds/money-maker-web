@@ -1,0 +1,82 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/paper-elements/paper-elements.html">
+
+<dom-module id="money-login">
+    <template>
+        <style include="iron-flex iron-positioning paper-styles">
+            :host {
+                display: block;
+            }
+
+            @media (max-width: 800px) {
+                paper-material{
+                    background-color: var(--paper-grey-50);
+                    padding: 20px;
+                    left: 75px;
+                    width: 55%;
+                }
+            }
+
+            @media (min-width: 800px) {
+                paper-material{
+                    background-color: var(--paper-grey-50);
+                    padding: 20px;
+                    left: 480px;
+                    width: 22%;
+                }
+            }
+
+            paper-fab {
+                --paper-fab-background: var(--paper-indigo-900);
+                position: fixed;
+                right: 40px;
+                bottom: 40px;
+                z-index: 1000;
+            }
+
+            iron-icon#password{
+                color:#C0C0C0;
+                padding-right:5px;
+            }
+
+            iron-icon#email{
+                color:#C0C0C0;
+                padding-right:5px;
+            }
+        </style>
+
+        <br><br><br>
+            <paper-material elevation="3">
+                <h2>Login</h2>
+                <paper-input label="E-mail">
+                    <iron-icon icon="mail" id="email" prefix></iron-icon>
+                </paper-input>
+                <paper-input label="Senha" type="password">
+                    <iron-icon icon="lock" prefix id="password"></iron-icon>
+                </paper-input>
+                <div class="buttons"><br>
+                    <paper-button>Esqueceu a senha?</paper-button>
+                    <paper-button autofocus>Entrar</paper-button>
+                </div>
+            </paper-material>
+        <br><br><br>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'money-login',
+            properties: {
+                _users: {
+                    type: Array,
+                    value: function() {
+                        return [];
+                    }
+                }
+            }
+        });
+    </script>
+</dom-module>

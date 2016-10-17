@@ -1,0 +1,199 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/iron-icons/notification-icons.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/fontawesome-iconset/fa-all.html">
+
+<dom-module id="money-app">
+    <template>
+        <style include="iron-flex iron-flex-alignment iron-positioning">
+            :host {
+                --app-primary-color: white;
+                --app-secondary-color: black;
+                display: block;
+            }
+
+            app-header {
+                color: black;
+                background-color: var(--app-primary-color);
+            }
+
+            app-header paper-icon-button {
+                --paper-icon-button-ink-color: white;
+            }
+
+            @media (max-width: 800px) {
+                app-toolbar {
+                    height: 128px;
+                }
+
+                img#logo{
+                    margin-top: 3px;
+                    width: 170px;
+                    margin-left: 75px;
+                }
+            }
+
+            @media (min-width: 800px) {
+                img#logo{
+                    margin-top: 65px;
+                    width: 160px;
+                }
+            }
+
+            paper-tabs {
+                width: 100%;
+                margin-left: 280px;
+                --paper-tabs-selection-bar-color: black;
+            }
+
+            paper-tab[link] a {
+                /* These mixins (from iron-flex-layout) center the link text. */
+                @apply(--layout-horizontal);
+                @apply(--layout-center-center);
+                color: #44423d;
+                font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+                font-weight: bold;
+                text-decoration: none;
+                font-size: 16pt;
+            }
+
+            p{
+                font-size: 11pt;
+                text-align: right;
+                padding-right: 10px;
+            }
+
+            iron-icon{
+                padding: 5px;
+            }
+
+            .drawer-list {
+                display: block;
+                margin-top: 70px;
+            }
+
+            .drawer-list a {
+                display: block;
+                padding: 0 15px;
+                text-decoration: none;
+                font-size: 14px;
+                color: var(--light-theme-secondary-color);
+                line-height: 40px;
+                font-weight: 500;
+            }
+
+            .drawer-list a:hover {
+                background-color: rgba(158,158,158,0.2);
+            }
+
+            .drawer-list a.iron-selected {
+                color: var(--app-accent-color);
+
+            }
+
+        </style>
+
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+
+        <iron-media-query query="(min-width: 600px)" query-matches="{{telaGrande}}"></iron-media-query>
+
+        <app-drawer-layout>
+            <app-drawer hidden="[[telaGrande]]">
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                    <a name="pagina-inicial" href="/pagina-inicial">
+                        <iron-icon icon="icons:home"></iron-icon>
+                        Página Inicial</a>
+                    <a name="listagem-acoes" href="/listagem-acoes">
+                        <iron-icon icon="editor:insert-chart"></iron-icon>
+                        Minhas Ações</a>
+                    <a name="login" href="/login">
+                        <iron-icon icon="icons:settings"></iron-icon>
+                        Minha Conta</a>
+                </iron-selector>
+            </app-drawer>
+
+            <app-header-layout condenses reveals>
+                <app-header reveals effects="waterfall">
+                    <app-toolbar>
+                        <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                        <div main-title>
+                            <img style="position: relative" id="logo" src="/images/icone.JPG">
+                        </div>
+
+                        <p top-item></p>
+                    </app-toolbar>
+
+                    <app-toolbar hidden="[[!telaGrande]]">
+                        <paper-tabs selected="0" class="bottom self-end" noink>
+                            <paper-tab link>
+                                <a href="/pagina-inicial" class="link" tabindex="-1"> Página Inicial</a>
+                            </paper-tab>
+                            <paper-tab link>
+                                <a href="/listagem-acoes" class="link" tabindex="-1"> Minhas Ações</a>
+                            </paper-tab>
+                            <paper-tab link>
+                                <a href="/login" class="link" tabindex="-1"> Minha Conta</a>
+                            </paper-tab>
+                        </paper-tabs>
+                    </app-toolbar>
+                </app-header>
+
+                <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
+                    <money-pagina-inicial name="pagina-inicial"></money-pagina-inicial>
+                    <money-listagem-acoes name="listagem-acoes"></money-listagem-acoes>
+                    <money-login name="login"></money-login>
+                    <money-404 name="404"></money-404>
+                </iron-pages>
+            </app-header-layout>
+        </app-drawer-layout>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'money-app',
+
+            properties: {
+                page: {
+                    type: String,
+                    reflectToAttribute: true,
+                    observer: '_pageChanged'
+                }
+            },
+
+            observers: [
+                '_routePageChanged(routeData.page)'
+            ],
+
+            _routePageChanged: function (page) {
+                this.page = page || 'pagina-inicial';
+            },
+
+            _pageChanged: function (page) {
+                // Load page import on demand. Show 404 page if fails
+                var resolvedPageUrl = this.resolveUrl('money-' + page + '.html');
+                this.importHref(resolvedPageUrl, null, this._showPage404, true);
+            },
+
+            _showPage404: function () {
+                this.page = '404';
+            }
+        });
+    </script>
+</dom-module>
