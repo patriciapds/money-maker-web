@@ -80,12 +80,12 @@
 
         <iron-media-query query="(min-width: 600px)" query-matches="{{telaGrande}}"></iron-media-query>
 
-        <app-drawer-layout>
+        <app-drawer-layout hidden="[[!loggedIn]]">
             <app-drawer hidden="[[telaGrande]]">
                 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
                     <a name="pagina-inicial" href="/pagina-inicial">
                         <iron-icon icon="icons:home"></iron-icon>
-                        Página Inicial</a>
+                        Página Inicial [[loggedIn]]</a>
                     <a name="listagem-acoes" href="/listagem-acoes">
                         <iron-icon icon="editor:insert-chart"></iron-icon>
                         Minhas Ações</a>
@@ -105,7 +105,7 @@
                         </div>
 
                         <paper-icon-button icon="search"></paper-icon-button>
-                        <paper-icon-button icon="lock"></paper-icon-button>
+                        <paper-icon-button icon="lock" on-tap="_logout"></paper-icon-button>
                     </app-toolbar>
 
                     <paper-tabs selected="0" class="bottom self-end flex" noink>
@@ -129,6 +129,20 @@
                 </iron-pages>
             </app-header-layout>
         </app-drawer-layout>
+
+        <paper-dialog opened="[[!loggedIn]]">
+            <h2>Login</h2>
+            <paper-input label="E-mail">
+                <iron-icon icon="mail" prefix></iron-icon>
+            </paper-input>
+            <paper-input label="Senha" type="password">
+                <iron-icon icon="lock" prefix id="password"></iron-icon>
+            </paper-input>
+            <div class="buttons">
+                <paper-button>Esqueceu a senha?</paper-button>
+                <paper-button autofocus on-tap="_login">Entrar</paper-button>
+            </div>
+        </paper-dialog>
     </template>
 
     <script>
@@ -136,6 +150,13 @@
             is: 'money-app',
 
             properties: {
+                loggedIn: {
+                    type: Boolean,
+                    value: function () {
+                        return true;
+                    },
+                },
+
                 page: {
                     type: String,
                     reflectToAttribute: true,
@@ -159,6 +180,14 @@
 
             _showPage404: function () {
                 this.page = '404';
+            },
+
+            _login: function () {
+                this.loggedIn = true;
+            },
+
+            _logout: function () {
+                this.loggedIn = false;
             }
         });
     </script>

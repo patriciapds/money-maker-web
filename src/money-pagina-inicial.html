@@ -1,0 +1,107 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/chart-elements/chart-elements.html">
+
+<dom-module id="money-pagina-inicial">
+    <template>
+        <style>
+            :host {
+                display: block;
+                padding: 23px;
+            }
+
+            paper-card {
+                margin-bottom: 1em;
+                width: 100%;
+            }
+            
+            @media (min-width: 640px) {
+                paper-card {
+                    margin: 0 0.5em 1em;
+                }
+
+                .grid {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-justified);
+                }
+            }
+
+            #chart-lucro, #chart-investimentos {
+                position: relative;
+                width: 100%;
+            }
+
+        </style>
+
+        <div class="grid">
+            <paper-card heading="Lucros obtidos" image="" elevation="1" animated-shadow="false">
+                <chart-line id="chart-lucro" class="rectangular-chart" data="[[lucro]]"></chart-line>
+            </paper-card>
+
+            <paper-card heading="Distribuição de investimentos" image="" elevation="1" animated-shadow="false">
+                 <chart-pie id="chart-investimentos" class="square-chart" data="[[investimentos]]"></chart-pie>
+            </paper-card>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'money-pagina-inicial',
+
+            properties: {
+                lucro: {
+                    type: Object,
+                    value: function () {
+                        return {
+                            labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Setembro", "Outubro"],
+                            datasets: [
+                                {
+                                label: "Lucro",
+                                backgroundColor: "rgba(220,220,220,0.2)",
+                                borderColor: "black",
+                                borderWidth: 1,
+                                pointBackgroundColor: "rgba(220,220,220,1)",
+                                pointBorderColor: "black",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                data: [65, -40, 80, 10, 0, 55, 40, -10, 50]
+                                }
+                            ]
+                        };
+                    }
+                },
+
+                investimentos: {
+                    type: Object,
+                    value: function () {
+                        return {
+                            labels: [
+                            "Google",
+                            "Apple",
+                            "Shopify"
+                            ],
+                            datasets: [
+                            {
+                                data: [300, 50, 100],
+                                backgroundColor: [
+                                "#36A2EB",
+                                "#FF6384",
+                                "#FFCE56"
+                                
+                                ],
+                                hoverBackgroundColor: [
+                                "#36A2EB",
+                                "#FF6384",
+                                "#FFCE56"
+                                ]
+                            }]
+                        };
+                    }
+                }
+            }
+        });
+    </script>
+</dom-module>
