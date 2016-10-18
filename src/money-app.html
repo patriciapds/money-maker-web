@@ -17,7 +17,6 @@
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../bower_components/iron-icons/notification-icons.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../bower_components/fontawesome-iconset/fa-all.html">
 
 <dom-module id="money-app">
     <template>
@@ -37,28 +36,8 @@
                 --paper-icon-button-ink-color: white;
             }
 
-            @media (max-width: 800px) {
-                app-toolbar {
-                    height: 128px;
-                }
-
-                img#logo{
-                    margin-top: 3px;
-                    width: 170px;
-                    margin-left: 75px;
-                }
-            }
-
-            @media (min-width: 800px) {
-                img#logo{
-                    margin-top: 65px;
-                    width: 160px;
-                }
-            }
-
             paper-tabs {
                 width: 100%;
-                margin-left: 280px;
                 --paper-tabs-selection-bar-color: black;
             }
 
@@ -69,16 +48,6 @@
                 color: #44423d;
                 font-weight: bold;
                 text-decoration: none;
-            }
-
-            p{
-                font-size: 11pt;
-                text-align: right;
-                padding-right: 10px;
-            }
-
-            iron-icon{
-                padding: 5px;
             }
 
             .drawer-list {
@@ -127,29 +96,29 @@
             </app-drawer>
 
             <app-header-layout condenses reveals>
-                <app-header reveals effects="waterfall">
+                <app-header fixed effects="waterfall">
                     <app-toolbar>
                         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-                        <div main-title>
-                            <img style="position: relative" id="logo" src="/images/icone.JPG">
+
+                        <div main-title class="layout horizontal">
+                            <img src="/images/logo.jpeg">
                         </div>
 
-                        <p top-item></p>
+                        <paper-icon-button icon="search"></paper-icon-button>
+                        <paper-icon-button icon="lock"></paper-icon-button>
                     </app-toolbar>
 
-                    <app-toolbar hidden="[[!telaGrande]]">
-                        <paper-tabs selected="0" class="bottom self-end" noink>
-                            <paper-tab link>
-                                <a href="/pagina-inicial" class="link" tabindex="-1"> Página Inicial</a>
-                            </paper-tab>
-                            <paper-tab link>
-                                <a href="/listagem-acoes" class="link" tabindex="-1"> Minhas Ações</a>
-                            </paper-tab>
-                            <paper-tab link>
-                                <a href="/login" class="link" tabindex="-1"> Minha Conta</a>
-                            </paper-tab>
-                        </paper-tabs>
-                    </app-toolbar>
+                    <paper-tabs selected="0" class="bottom self-end flex" noink>
+                        <paper-tab link>
+                            <a href="/pagina-inicial" class="link" tabindex="-1"> Página Inicial</a>
+                        </paper-tab>
+                        <paper-tab link>
+                            <a href="/listagem-acoes" class="link" tabindex="-1"> Minhas Ações</a>
+                        </paper-tab>
+                        <paper-tab link>
+                            <a href="/login" class="link" tabindex="-1"> Minha Conta</a>
+                        </paper-tab>
+                    </paper-tabs>
                 </app-header>
 
                 <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">

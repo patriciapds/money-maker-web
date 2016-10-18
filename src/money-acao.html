@@ -1,0 +1,69 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<dom-module id="money-acao">
+  <template include="iron-flex iron-flex-alignment">
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-card {
+        width: 100%;
+      }
+
+      .heading {
+        margin-bottom: 1em;
+      }
+
+      h2 {
+        margin: 0;
+      }
+
+      .down{
+          color: red;
+          padding-left: 15px;
+          font-size: 11pt;
+          font-family: Roboto, Noto, sans-serif;
+      }
+
+      .up{
+          color: green;
+          padding-left: 15px;
+          font-size: 11pt;
+          font-family: Roboto, Noto, sans-serif;
+      }
+    </style>
+
+    <paper-card>
+      <div class="card-content">
+        <span class="heading layout horizontal center justified">
+          <h2>[[nome]]</h2>
+          <span class="up"><iron-icon icon="icons:arrow-upward"></iron-icon> R$ 00,89 (1,00%)</span>
+        </span>
+
+        <span>
+          Saldo: R$ 1567,50
+        </span>
+        
+      </div>
+      <div class="card-actions">
+        
+        <paper-button>Comprar</paper-button>
+        <paper-button>Vender</paper-button>
+      </div>
+    </paper-card>
+    
+  </template>
+
+  <script>
+    Polymer({
+      is: 'money-acao',
+      
+      properties: {
+        nome: String
+      }
+    });
+  </script>
+</dom-module>
